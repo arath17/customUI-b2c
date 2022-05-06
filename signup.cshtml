@@ -1065,55 +1065,24 @@
               src="https://login.microsoftonline.com/static/tenant/templates/images/logo.svg" alt="Company Logo">
             <div id="api" role="main">
             </div>
-            <div id="passwordcheck">
-              <div id="uppercase"><span id="tickUppercase">X</span> Uppercase</div>
-              <div id="lowercase"><span id="tickLowercase">X</span> Lowercase</div>
-              <div id="digit"><span id="tickDigit">X</span> digit</div>
-            </div>
             <a
               href="https://ashutestorg.b2clogin.com/ashutestorg.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1A_SIGNIN&client_id=b02f5ac7-f10f-4163-9bea-a43db2f5b253&nonce=defaultNonce&redirect_uri=http%3A%2F%2Flocalhost%3A3000&scope=openid&response_type=code&prompt=login&code_challenge=YTFjNjI1OWYzMzA3MTI4ZDY2Njg5M2RkNmVjNDE5YmEyZGRhOGYyM2IzNjdmZWFhMTQ1ODg3NDcxY2Nl">Sign
               in</a>
+            <p>Hello there</p>
           </div>
         </div>
       </div>
     </div>
   </div>
   <script>
-    document.getElementById("newPassword").oninput = function () {
-      const val = this.value;
-      if (val.search(/[A-Z]/g) == -1) {
-        document.getElementById("tickUppercase").innerHTML = 'X';
-      }
-      else {
-        document.getElementById("tickUppercase").innerHTML = '\\//';
-      }
-      if (val.search(/[a-z]/g) == -1) {
-        document.getElementById("tickLowercase").innerHTML = 'X';
-      }
-      else {
-        document.getElementById("tickLowercase").innerHTML = '\\//';
-      }
-      if (val.search(/[0-9]/g) == -1) {
-        document.getElementById("tickDigit").innerHTML = 'X';
-      }
-      else {
-        document.getElementById("tickDigit").innerHTML = '\\//';
-      }
-    };
-  </script>
-  <script>
     function makePwdToggler(pwd) {
-      // Create show-password checkbox
       var checkbox = document.createElement('i');
       checkbox.setAttribute('class', 'bi bi-eye-slash');
       var id = pwd.id + 'toggler';
       checkbox.setAttribute('id', id);
 
-
-      // Add show-password checkbox under password input
       pwd.insertAdjacentElement('afterend', checkbox);
 
-      // Add toggle password callback
       function toggle() {
         if (pwd.type === 'password') {
           pwd.type = 'text';
@@ -1132,7 +1101,38 @@
       }
     }
 
+function insertPasswordCheckDiv() {
+      var passwordcheck = document.createElement('div');
+      passwordcheck.id = 'passwordcheck';
+      passwordcheck.innerHTML = '<div id="uppercase"><span id="tickUppercase">X</span> Uppercase</div><div id="lowercase"><span id="tickLowercase">X</span> Lowercase</div><div id="digit"><span id="tickDigit">X</span> digit</div>';
+      query("#attributeList").insertAdjacentElement("afterend", passwordcheck)
+      var newPassword = query("#newPassword");
+      newPassword.oninput = function () {
+        var val = this.value;
+        if (val.search(/[A-Z]/g) == -1) {
+          query("#tickUppercase").innerHTML = 'X';
+        }
+        else {
+          query("#tickUppercase").innerHTML = '\\//';
+        }
+        if (val.search(/[a-z]/g) == -1) {
+          query("#tickLowercase").innerHTML = 'X';
+        }
+        else {
+          query("#tickLowercase").innerHTML = '\\//';
+        }
+        if (val.search(/[0-9]/g) == -1) {
+          query("#tickDigit").innerHTML = 'X';
+        }
+        else {
+          query("#tickDigit").innerHTML = '\\//';
+        }
+      };
+    }
+
+    insertPasswordCheckDiv();
     setupPwdTogglers();
+
   </script>
 </body>
 
